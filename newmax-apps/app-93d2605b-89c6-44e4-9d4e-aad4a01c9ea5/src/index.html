@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>股价追踪</title>
+  <link rel="stylesheet" href="tape.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="toolbar">
+      <div class="brand">
+        <img id="logo" alt="" hidden>
+        <div class="brand-copy">
+          <h1 id="app-name">股价追踪</h1>
+          <p id="sync-status" class="sync" role="status">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span class="sync-text">正在读取</span>
+          </p>
+        </div>
+      </div>
+      <div class="toolbar-actions">
+        <button type="button" id="refresh-btn" class="icon-btn">
+          <span class="ico" data-icon="refresh"></span>
+          <span class="btn-label">刷新</span>
+        </button>
+        <button type="button" id="stop-service" class="icon-btn">
+          <span class="ico" data-icon="pause"></span>
+          <span class="btn-label">停止</span>
+        </button>
+      </div>
+    </header>
+
+    <form id="add-form" class="composer">
+      <label for="symbol">添加股票</label>
+      <div class="composer-row">
+        <div class="field">
+          <span class="ico" data-icon="search"></span>
+          <input id="symbol" name="symbol" autocomplete="off" spellcheck="false" placeholder="名称或代码，如 appl、茅台、600519">
+        </div>
+        <button type="submit" id="add-btn" class="btn-fill">
+          <span class="ico" data-icon="plus"></span>
+          <span class="btn-label">添加</span>
+        </button>
+      </div>
+      <div id="suggest" class="suggest" role="listbox" aria-label="匹配的股票" hidden></div>
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+    </form>
+
+    <p class="hint">报价有延迟，仅供查看。拖动排序，前 3 只显示在信息卡。打开后会自动刷新，关掉窗口也继续，直到退出 NewMax。</p>
+    <p id="banner" class="notice" role="status" hidden>
+      <span class="ico" data-icon="info"></span>
+      <span id="banner-text"></span>
+    </p>
+
+    <section id="empty" class="empty" hidden>
+      <h2>还没有关注的股票</h2>
+      <p>查到现价后才会出现在列表和信息卡里。</p>
+      <div class="chips">
+        <button type="button" class="chip" data-add="sh600519">贵州茅台 600519</button>
+        <button type="button" class="chip" data-add="hk00700">腾讯控股 00700</button>
+        <button type="button" class="chip" data-add="usAAPL">苹果 AAPL</button>
+        <button type="button" class="chip" data-add="sh000001">上证指数</button>
+      </div>
+    </section>
+
+    <div id="list" class="tape" hidden></div>
+  </div>
+  <script src="quote.js"></script>
+  <script src="search.js"></script>
+  <script src="store.js"></script>
+  <script src="icons.js"></script>
+  <script src="tape-ui.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

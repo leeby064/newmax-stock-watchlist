@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "id": "app-93d2605b-89c6-44e4-9d4e-aad4a01c9ea5",
+  "name": "股价追踪",
+  "icon": "symbol:bar_chart:ocean",
+  "version": "1.0.1",
+  "description": "在侧栏停靠面板和独立窗口管理自选股，信息卡显示前 3 只。打开窗口启动本机后台服务后自动同步现价与分时。",
+  "standard": {
+    "id": "newmax.local-app",
+    "version": "2026.09",
+    "runtimeApi": "^1.0.0",
+    "compatibility": "semver"
+  },
+  "builder": {
+    "status": "built",
+    "currentPhase": "snapshot",
+    "requirements": [
+      "保留独立窗口、侧栏停靠/工作台面板与信息卡三种形态：打开独立窗口可拉取行情并启动本机后台服务，侧栏面板管理自选股，信息卡显示前 3 只。",
+      "可在窗口或停靠面板输入常见名称、简称或精确代码（A股、港股、美股）加入自选列表，由窗口或本机后台服务自动拉取名称、现价、涨跌幅和分时走势；拉不到现价时不写入假价格。",
+      "关注列表保存在本机，重新打开后仍在；停靠面板支持点击展开详情、More 菜单置顶/移除（二次确认）以及整行拖拽和键盘排序，前 3 只自动同步到信息卡。",
+      "点击面板刷新按钮时向后台服务发起补拉请求并同步最新本地行情；若后台服务未运行或拉取失败，保留上次行情并明确提示打开窗口恢复同步。",
+      "信息卡在 252×160 内以最多 3 行显示已保存的代码、名称、现价和涨跌方向；有上一交易日或当日分时才画走势，不编造曲线；不显示更新时间；价格字号与代码、名称对应，并带货币符号；没有数据时说明去侧栏面板添加；不重复应用标题。外壳背景和边框透明，不另铺卡片底。",
+      "空列表、加载中和错误都有可见说明；涨跌不只靠颜色区分。",
+      "窗口、停靠面板和信息卡的行情行同构：代码、名称、有数据才画的分时、现价和带正负号的涨跌。"
+    ],
+    "assumptions": [
+      "本机后台服务（backend/quote_server.py）在打开独立窗口时由 NewMax 宿主自动拉起，通过腾讯行情 qt.gtimg.cn 等公开接口拉取报价与分时，约每 45 秒写回真实数据（收到面板手动刷新或有缺价股票时数秒内补齐），不保存密钥。",
+      "停靠面板和信息卡受沙箱隔离不能直接联网，只读写本机已保存的行情并通过控制键通知后台服务补拉，支持内置百只常见股票关键词匹配与精确代码添加。",
+      "最多关注 20 只；信息卡显示列表前 3 只。"
+    ],
+    "acceptanceCriteria": [
+      "应用包含独立窗口、侧栏停靠/工作台面板与信息卡；打开独立窗口可自动拉起本机后台行情服务。",
+      "可在窗口或停靠面板用常见名称或 A 股、港股、美股代码添加股票；查不到现价时不写入假价格，并由窗口或后台服务自动补齐名称、现价、涨跌幅和分时。",
+      "关注列表保存在本机，重新打开后仍在；停靠面板支持置顶、移除二次确认及整行拖拽/键盘排序，顺序会改变信息卡前 3 只。",
+      "点击面板刷新会触发后台服务立即补拉并同步最新行情；后台未运行或刷新失败时保留上次行情，并明确说明原因与恢复方式。",
+      "信息卡在 252×160 内以最多 3 行显示已保存的代码、名称、现价和涨跌方向；有上一交易日或当日分时才画走势，不编造曲线；不显示更新时间；价格字号与代码、名称对应，并带货币符号；没有数据时说明去侧栏面板添加；不重复应用标题。外壳背景和边框透明，不另铺卡片底。",
+      "空列表、加载中和错误都有可见说明；涨跌不只靠颜色区分。",
+      "窗口、停靠面板和信息卡的行情行同构：代码、名称、有数据才画的分时、现价和带正负号的涨跌。"
+    ],
+    "buildTrace": [
+      {
+        "id": "acceptance-requirements",
+        "phase": "requirements",
+        "title": "Requirements accepted",
+        "status": "completed",
+        "summary": "7 acceptance criteria were checked against the app."
+      },
+      {
+        "id": "acceptance-plan",
+        "phase": "plan",
+        "title": "Build plan present",
+        "status": "completed",
+        "summary": "The app contract, including BUILD_PLAN.md, passed validation at acceptance."
+      },
+      {
+        "id": "acceptance-generate",
+        "phase": "generate",
+        "title": "Source generated",
+        "status": "completed",
+        "summary": "Accepted source revision 534cb62c230820d85dfac984a06d2d2dd8887df2ee3e2c617ded20cbaa2692fe."
+      },
+      {
+        "id": "acceptance-run",
+        "phase": "run",
+        "title": "Previewed in the real runtime",
+        "status": "completed",
+        "summary": "Inspected: window, setup@dock, setup@workbench, tape@info-card/section."
+      },
+      {
+        "id": "acceptance-validate",
+        "phase": "validate",
+        "title": "Acceptance checks passed",
+        "status": "completed",
+        "summary": "Every acceptance criterion has a passed check with observed evidence in ACCEPTANCE.md."
+      },
+      {
+        "id": "acceptance-snapshot",
+        "phase": "snapshot",
+        "title": "Accepted snapshot recorded",
+        "status": "completed",
+        "summary": "Acceptance is bound to source revision 534cb62c230820d85dfac984a06d2d2dd8887df2ee3e2c617ded20cbaa2692fe."
+      }
+    ]
+  },
+  "runtime": "^1.0.0",
+  "entry": {
+    "frontend": "src/index.html"
+  },
+  "permissions": [
+    "data.kv"
+  ],
+  "surfaces": {
+    "launchers": [
+      {
+        "id": "manage",
+        "title": "行情",
+        "icon": "symbol:bar_chart:ocean",
+        "slots": [
+          "sidebar/below-nav"
+        ],
+        "opens": {
+          "kind": "panel",
+          "id": "setup"
+        },
+        "badge": false
+      }
+    ],
+    "panels": [
+      {
+        "id": "setup",
+        "title": "行情设置",
+        "entry": "src/panel.html",
+        "sizes": [
+          "m"
+        ],
+        "hosts": [
+          "dock",
+          "workbench"
+        ]
+      }
+    ],
+    "inline": [
+      {
+        "id": "tape",
+        "title": "行情",
+        "entry": "src/card.html",
+        "slots": [
+          "info-card/section"
+        ],
+        "card": {
+          "variant": "flat",
+          "background": {
+            "light": "transparent",
+            "dark": "transparent"
+          },
+          "border": {
+            "light": "transparent",
+            "dark": "transparent"
+          }
+        }
+      }
+    ]
+  },
+  "requiredCapabilities": [
+    "data.kv"
+  ],
+  "shortcuts": [
+    {
+      "surface": "newmax.sidebar",
+      "title": "股价追踪",
+      "icon": "symbol:bar_chart:ocean"
+    }
+  ],
+  "services": [
+    {
+      "id": "quotes",
+      "name": "行情刷新",
+      "executable": {
+        "darwin": "backend/quote_server.sh"
+      },
+      "entry": "backend/quote_server.py",
+      "args": [],
+      "readiness": {
+        "connectionFile": "connection.json",
+        "healthPath": "/health"
+      },
+      "startupTimeoutMs": 15000
+    }
+  ],
+  "createdAt": "2026-11-06T14:55:32.567Z",
+  "updatedAt": "2026-11-24T12:02:40.732Z"
+}

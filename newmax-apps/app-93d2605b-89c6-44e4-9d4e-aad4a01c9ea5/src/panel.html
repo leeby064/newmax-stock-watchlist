@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>行情设置</title>
+  <link rel="stylesheet" href="tape.css">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <main id="panel">
+    <header class="bar">
+      <div class="bar-left">
+        <p id="sync-status" class="sync" role="status">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span class="sync-text">正在读取</span>
+        </p>
+        <span id="count-pill" class="count-pill" hidden>0/20</span>
+      </div>
+      <button type="button" id="refresh-btn" class="ghost-icon-btn" aria-label="刷新行情" title="刷新行情">
+        <span class="ico" data-icon="refresh"></span>
+      </button>
+    </header>
+
+    <form id="add-form" class="composer">
+      <label class="sr-only" for="symbol">添加股票</label>
+      <div class="field">
+        <span class="ico" data-icon="search"></span>
+        <input id="symbol" name="symbol" autocomplete="off" spellcheck="false" enterkeyhint="search" placeholder="搜索名称或代码，如 茅台">
+        <button type="button" id="clear-input" class="field-clear" aria-label="清空搜索" title="清空" hidden>
+          <span class="ico" data-icon="x"></span>
+        </button>
+        <button type="submit" id="add-btn" class="field-add" hidden>
+          <span class="btn-label">添加</span>
+        </button>
+      </div>
+      <div id="suggest" class="suggest" role="listbox" aria-label="匹配的股票" hidden></div>
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+    </form>
+
+    <div id="banner" class="notice" role="status" hidden>
+      <span class="ico" data-icon="info"></span>
+      <span id="banner-text" class="notice-text"></span>
+      <button type="button" id="banner-close" class="notice-close" aria-label="收起提示" title="收起">
+        <span class="ico" data-icon="x"></span>
+      </button>
+    </div>
+
+    <section id="empty" class="empty" hidden>
+      <div class="empty-card">
+        <div class="empty-icon" aria-hidden="true">
+          <span class="ico" data-icon="search"></span>
+        </div>
+        <h2>还没有关注的股票</h2>
+        <p>在上方输入名称或代码添加，前 3 只会自动同步到信息卡，由本机后台服务自动拉取现价。</p>
+        <div class="chips">
+          <button type="button" class="chip" data-add="sh600519">+ 贵州茅台</button>
+          <button type="button" class="chip" data-add="hk00700">+ 腾讯控股</button>
+          <button type="button" class="chip" data-add="usAAPL">+ 苹果 AAPL</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="list" class="tape" hidden></div>
+  </main>
+  <script src="quote.js"></script>
+  <script src="search.js"></script>
+  <script src="store.js"></script>
+  <script src="icons.js"></script>
+  <script src="tape-ui.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
